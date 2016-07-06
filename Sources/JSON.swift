@@ -41,6 +41,9 @@ extension JSON {
         
         /// Unexpected JSON `value` was found that is not convertible `to` type 
         case ValueNotConvertible(value: JSON, to: Any.Type)
+
+        /// Unexpected JSON `value` was found at path `path` that is not convertible `to` type
+        case ValueNotConvertibleAtPath(value: JSON, to: Any.Type, path: [JSONPathType])
     }
 
 }

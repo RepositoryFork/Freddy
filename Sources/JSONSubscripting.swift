@@ -141,7 +141,13 @@ extension JSON {
     ///   * `TypeNotConvertible`: The target value's type inside of
     ///     the `JSON` instance does not match `Decoded`.
     public func decode<Decoded: JSONDecodable>(path: JSONPathType..., type: Decoded.Type = Decoded.self) throws -> Decoded {
-        return try Decoded(json: valueAtPath(path))
+        do {
+            return try Decoded(json: valueAtPath(path))
+        } catch Error.ValueNotConvertible(let value, let toType) {
+            throw Error.ValueNotConvertibleAtPath(value: value, to: toType, path: path)
+        } catch {
+            throw error
+        }
     }
 
     /// Retrieves a `Double` from a path into JSON.
@@ -150,7 +156,13 @@ extension JSON {
     /// - throws: One of the `JSON.Error` cases thrown by `decode(_:type:)`.
     /// - seealso: `JSON.decode(_:type:)`
     public func double(path: JSONPathType...) throws -> Swift.Double {
-        return try Swift.Double(json: valueAtPath(path))
+        do {
+            return try Swift.Double(json: valueAtPath(path))
+        } catch Error.ValueNotConvertible(let value, let toType) {
+            throw Error.ValueNotConvertibleAtPath(value: value, to: toType, path: path)
+        } catch {
+            throw error
+        }
     }
 
     /// Retrieves an `Int` from a path into JSON.
@@ -159,7 +171,13 @@ extension JSON {
     /// - throws: One of the `JSON.Error` cases thrown by `decode(_:type:)`.
     /// - seealso: `JSON.decode(_:type:)`
     public func int(path: JSONPathType...) throws -> Swift.Int {
-        return try Swift.Int(json: valueAtPath(path))
+        do {
+            return try Swift.Int(json: valueAtPath(path))
+        } catch Error.ValueNotConvertible(let value, let toType) {
+            throw Error.ValueNotConvertibleAtPath(value: value, to: toType, path: path)
+        } catch {
+            throw error
+        }
     }
 
     /// Retrieves a `String` from a path into JSON.
@@ -168,7 +186,13 @@ extension JSON {
     /// - throws: One of the `JSON.Error` cases thrown by `decode(_:type:)`.
     /// - seealso: `JSON.decode(_:type:)`
     public func string(path: JSONPathType...) throws -> Swift.String {
-        return try Swift.String(json: valueAtPath(path))
+        do {
+            return try Swift.String(json: valueAtPath(path))
+        } catch Error.ValueNotConvertible(let value, let toType) {
+            throw Error.ValueNotConvertibleAtPath(value: value, to: toType, path: path)
+        } catch {
+            throw error
+        }
     }
 
     /// Retrieves a `Bool` from a path into JSON.
@@ -177,7 +201,13 @@ extension JSON {
     /// - throws: One of the `JSON.Error` cases thrown by `decode(_:type:)`.
     /// - seealso: `JSON.decode(_:type:)`
     public func bool(path: JSONPathType...) throws -> Swift.Bool {
-        return try Swift.Bool(json: valueAtPath(path))
+        do {
+            return try Swift.Bool(json: valueAtPath(path))
+        } catch Error.ValueNotConvertible(let value, let toType) {
+            throw Error.ValueNotConvertibleAtPath(value: value, to: toType, path: path)
+        } catch {
+            throw error
+        }
     }
 
     /// Retrieves a `[JSON]` from a path into JSON.
@@ -186,7 +216,13 @@ extension JSON {
     /// - throws: One of the `JSON.Error` cases thrown by `decode(_:type:)`.
     /// - seealso: `JSON.decode(_:type:)`
     public func array(path: JSONPathType...) throws -> [JSON] {
-        return try JSON.getArray(valueAtPath(path))
+        do {
+            return try JSON.getArray(valueAtPath(path))
+        } catch Error.ValueNotConvertible(let value, let toType) {
+            throw Error.ValueNotConvertibleAtPath(value: value, to: toType, path: path)
+        } catch {
+            throw error
+        }
     }
 
     /// Attempts to decodes many values from a desendant JSON array at a path
@@ -200,7 +236,13 @@ extension JSON {
     ///           any error that arises from decoding the contained values.
     /// - seealso: `JSON.decode(_:type:)`
     public func arrayOf<Decoded: JSONDecodable>(path: JSONPathType..., type: Decoded.Type = Decoded.self) throws -> [Decoded] {
-        return try JSON.getArrayOf(valueAtPath(path))
+        do {
+            return try JSON.getArrayOf(valueAtPath(path))
+        } catch Error.ValueNotConvertible(let value, let toType) {
+            throw Error.ValueNotConvertibleAtPath(value: value, to: toType, path: path)
+        } catch {
+            throw error
+        }
     }
 
     /// Retrieves a `[String: JSON]` from a path into JSON.
@@ -209,7 +251,13 @@ extension JSON {
     /// - throws: One of the `JSON.Error` cases thrown by `decode(_:type:)`.
     /// - seealso: `JSON.decode(_:type:)`
     public func dictionary(path: JSONPathType...) throws -> [Swift.String: JSON] {
-        return try JSON.getDictionary(valueAtPath(path))
+        do {
+            return try JSON.getDictionary(valueAtPath(path))
+        } catch Error.ValueNotConvertible(let value, let toType) {
+            throw Error.ValueNotConvertibleAtPath(value: value, to: toType, path: path)
+        } catch {
+            throw error
+        }
     }
 
 }

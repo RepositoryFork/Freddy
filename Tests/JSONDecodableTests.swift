@@ -149,7 +149,7 @@ class JSONDecodableTests: XCTestCase {
         do {
             _ = try badJSONArray.array()
             XCTFail("array should not exist.")
-        } catch JSON.Error.ValueNotConvertible(let type) {
+        } catch JSON.Error.ValueNotConvertibleAtPath(let type) {
             XCTAssert(true, "\(type) should not be convertible to `[JSON]`")
         } catch {
             XCTFail("Failed for unknown reason: \(error).")
@@ -170,7 +170,7 @@ class JSONDecodableTests: XCTestCase {
         do {
             _ = try badJSONDictionary.dictionary()
             XCTFail("There should be no dictionary.")
-        } catch JSON.Error.ValueNotConvertible(let type) {
+        } catch JSON.Error.ValueNotConvertibleAtPath(let type) {
             XCTAssertTrue(true, "\(type) shold not be convertible to `[String: JSON]`.")
         } catch {
             XCTFail("Failed for unknown reason: \(error).")
@@ -205,7 +205,7 @@ class JSONDecodableTests: XCTestCase {
         do {
             let _: Int? = try JSONDictionary.int("key")
             XCTFail("Should have thrown an error when attempting to retrieve a value for key `key` in `JSONDictionary` when not specifying `ifNull` to be `true`.")
-        } catch let JSON.Error.ValueNotConvertible(_, to) where to == Int.self {
+        } catch let JSON.Error.ValueNotConvertibleAtPath(_, to, _) where to == Int.self {
             return
         } catch {
             XCTFail("An unexpected exception was thrown.")
