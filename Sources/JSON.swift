@@ -44,6 +44,9 @@ extension JSON {
         
         /// The JSON is not serializable to a `String`.
         case stringSerializationError
+
+        /// Unexpected JSON `value` was found at path `path` that is not convertible `to` type
+        case valueNotConvertibleAtPath(value: JSON, to: Any.Type, path: [JSONPathType])
     }
 
 }
