@@ -199,7 +199,7 @@ class JSONSubscriptingTests: XCTestCase {
         do {
             _ = try residentJSON.decode(at: 1, type: Resident.self)
             XCTFail("Should throw error.")
-        } catch JSON.Error.unexpectedSubscript(type: let theType) {
+        } catch JSON.Error.unexpectedSubscriptAtPath(type: let theType, path: _) {
             XCTAssertTrue(theType is Int.Type)
         } catch {
             XCTFail("Didn't catch the right error: \(error).")
@@ -305,7 +305,7 @@ class JSONSubscriptingTests: XCTestCase {
     func testThatUnexpectedSubscriptIsThrown() {
         do {
             _ = try residentJSON.decode(at: "residents", 1, "name", "initial", type: Resident.self)
-        } catch JSON.Error.unexpectedSubscript(let type) {
+        } catch JSON.Error.unexpectedSubscriptAtPath(let type, path: _) {
             XCTAssert(type == Swift.String.self, "The dictionary at index 1 should not be subscriptable by: \(type).")
         } catch {
             XCTFail("This should not be: \(error).")
@@ -402,7 +402,7 @@ class JSONSubscriptingTests: XCTestCase {
     func testJSONErrorUnexpectedSubscript() {
         do {
             _ = try json.getString(at: "people", "name")
-        } catch JSON.Error.unexpectedSubscript(let type) {
+        } catch JSON.Error.unexpectedSubscriptAtPath(let type, path: _) {
             XCTAssert(type == Swift.String.self, "The error should be due the value not being subscriptable with string `String` case, but was \(type).")
         } catch {
             XCTFail("The error should be due to the `people` `Array` not being subscriptable with `String`s, but was: \(error).")

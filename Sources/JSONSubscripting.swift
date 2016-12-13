@@ -35,13 +35,13 @@ extension JSONPathType {
     /// The default behavior for keying into a dictionary is to throw
     /// `JSON.Error.UnexpectedSubscript`.
     public func value(in dictionary: [String : JSON]) throws -> JSON {
-        throw JSON.Error.unexpectedSubscript(type: Self.self)
+        throw JSON.Error.unexpectedSubscriptAtPath(type: Self.self, path: self)
     }
 
     /// The default behavior for indexing into an array is to throw
     /// `JSON.Error.UnexpectedSubscript`.
     public func value(in array: [JSON]) throws -> JSON {
-        throw JSON.Error.unexpectedSubscript(type: Self.self)
+        throw JSON.Error.unexpectedSubscriptAtPath(type: Self.self, path: self)
     }
 
 }
@@ -95,7 +95,7 @@ private extension JSON {
         case let .array(array):
             return try pathFragment.value(in: array)
         default:
-            throw Error.unexpectedSubscript(type: type(of: pathFragment))
+            throw Error.unexpectedSubscriptAtPath(type: type(of: pathFragment), path: pathFragment)
         }
     }
 
