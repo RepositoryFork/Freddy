@@ -37,7 +37,7 @@ extension JSON {
         case keyNotFound(key: String)
         
         /// The JSON is not subscriptable with `type`
-        case unexpectedSubscript(type: JSONPathType.Type)
+        case unexpectedSubscriptAtPath(type: JSONPathType.Type, path: JSONPathType)
         
         /// Unexpected JSON `value` was found that is not convertible `to` type 
         case valueNotConvertible(value: JSON, to: Any.Type)
