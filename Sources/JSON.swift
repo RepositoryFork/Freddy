@@ -20,6 +20,8 @@ public enum JSON {
     case string(String)
     /// A case for denoting a boolean with an associated value of `Swift.Bool`.
     case bool(Bool)
+    /// A case for denoting an Int64
+    case int64(Int64)
     /// A case for denoting null.
     case null
 }
@@ -71,6 +73,16 @@ public func ==(lhs: JSON, rhs: JSON) -> Bool {
         return bL == bR
     case (.null, .null):
         return true
+    case (.int64(let intL), .int64(let intR)):
+        return intL == intR
+    case (.int64(let intL), .double(let dubR)):
+        return intL == Int64(dubR)
+    case (.int64(let intL), .int(let intR)):
+        return intL == Int64(intR)
+    case (.double(let dubL), .int64(let intR)):
+        return Int64(dubL) == intR
+    case (.int(let intL), .int64(let intR)):
+        return Int64(intL) == intR
     default:
         return false
     }
@@ -91,6 +103,7 @@ extension JSON: CustomStringConvertible {
         case .double(let double):   return String(describing: double)
         case .int(let int):         return String(describing: int)
         case .bool(let bool):       return String(describing: bool)
+        case .int64(let int):       return String(describing: int)
         case .null:                 return "null"
         }
     }

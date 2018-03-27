@@ -68,6 +68,36 @@ extension Int: JSONDecodable {
     
 }
 
+extension Int64: JSONDecodable {
+
+    /// An initializer to create an instance of `Int64` from a `JSON` value.
+    /// - parameter json: An instance of `JSON`.
+    /// - throws: The initializer will throw an instance of `JSON.Error` if
+    ///           an instance of `Int` cannot be created from the `JSON` value that was
+    ///           passed to this initializer.
+    public init(json: JSON) throws {
+
+        if case let .double(double) = json, double <= Double(Int.max) {
+            self = Int64(double)
+        } else if case let .int(int) = json {
+            self = Int64(int)
+        } else if case let .int64(int) = json {
+            self = int
+        } else if case let .string(string) = json, let int = Int(string) {
+            self = Int64(int)
+        } else if case let .string(string) = json,
+            let double = Double(string),
+            let decimalSeparator = string.characters.index(of: "."),
+            let int = Int(String(string.characters.prefix(upTo: decimalSeparator))),
+            double == Double(int) {
+            self = Int64(int)
+        } else {
+            throw JSON.Error.valueNotConvertible(value: json, to: Int64.self)
+        }
+    }
+
+}
+
 extension String: JSONDecodable {
     
     /// An initializer to create an instance of `String` from a `JSON` value.
