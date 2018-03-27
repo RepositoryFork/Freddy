@@ -46,6 +46,8 @@ extension JSON {
             return NSNumber(value: int)
         case .bool(let b):
             return NSNumber(value: b)
+        case .int64(let int):
+            return NSNumber(value: int)
         case .null:
             return NSNull()
         }
