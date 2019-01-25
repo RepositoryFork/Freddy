@@ -734,6 +734,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB6ADF801C23617500D77BF1 /* Debug.xcconfig */;
 			buildSettings = {
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -741,6 +742,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DB6ADF821C23617500D77BF1 /* Release.xcconfig */;
 			buildSettings = {
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
